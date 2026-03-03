@@ -9,7 +9,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@openhw/emulator": "github:OpenHW-Studio/emulator",
     "@react-oauth/google": "^0.12.1",
     "avr8js": "^0.21.0",
     "axios": "^1.6.7",
