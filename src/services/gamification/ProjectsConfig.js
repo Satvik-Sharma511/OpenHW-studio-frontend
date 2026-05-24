@@ -1,4 +1,6 @@
 
+import { PROJECT_DATA, getWokwiType } from './ProjectData';
+
 export const PROJECTS = [
   // ── World 1: Circuit Basics ──────────────────────────────────────────────
   {
@@ -20,6 +22,7 @@ export const PROJECTS = [
     world: 1,
     tags: ['LED', 'digital output', 'blinking'],
     // Components available at start (given for free — no unlock needed)
+    startingComponents: ['wokwi-arduino-uno', 'wokwi-led', 'wokwi-resistor'],
     startingComponents: ['openhw-arduino-uno', 'openhw-led', 'openhw-resistor'],
     // What you EARN when you finish this project
     rewardComponents: [
@@ -848,7 +851,7 @@ export function getEarnedComponents(completedProjects = []) {
 // ── Helper: what components will I earn from completing this project? ─────────
 export function getProjectRewardComponents(projectSlug) {
   const project = PROJECTS.find(p => p.slug === projectSlug);
-  return project?.rewardComponents || [];
+  return PROJECT_DATA[projectSlug]?.unlockComponents || [];
 }
 
 export function getLockedProjects(completedProjects = []) {

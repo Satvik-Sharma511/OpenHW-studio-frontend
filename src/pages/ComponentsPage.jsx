@@ -177,7 +177,7 @@ const S = {
 }
 
 export default function ComponentsPage() {
-  const navigate = useNavigate()
+  const navigate = useNavigate('/adventure')
   const { unlockedComponentTypes, completedProjects, currentLevel, xp } = useGamification()
   const [expandedCard, setExpandedCard] = useState(null)
 
@@ -266,7 +266,7 @@ export default function ComponentsPage() {
               isStarting={STARTING_COMPONENTS.includes(comp.wokwiType || `wokwi-${comp.id}`)}
               expanded={expandedCard === comp.id}
               onToggle={() => setExpandedCard(expandedCard === comp.id ? null : comp.id)}
-              onLearn={() => navigate(`/components/${comp.id}/theory`)}
+              onLearn={() => navigate('/adventure')}
             />
           ))}
         </div>

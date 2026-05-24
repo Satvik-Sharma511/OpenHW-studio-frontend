@@ -76,7 +76,7 @@ function normalizeHashValue(value: any, depth = 0): any {
     if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') return value;
 
     if (ArrayBuffer.isView(value)) {
-        const view = value as ArrayLike<number> & { length?: number };
+        const view = value as unknown as ArrayLike<number> & { length?: number };
         const len = Number(view?.length || 0);
         const preview: number[] = [];
         for (let i = 0; i < Math.min(len, 24); i++) {

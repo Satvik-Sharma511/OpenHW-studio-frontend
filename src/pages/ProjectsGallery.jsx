@@ -238,7 +238,7 @@ export default function ProjectsGallery() {
               isCompleted={completedProjectIds.has(project.id)}
               missingComponents={getMissingComponents(project, unlockedComponents)}
               canStart={canStartProject(project, unlockedComponents) && isSeqUnlocked(project.slug)}
-              onStart={() => navigate(`/gamification-simulator/${project.slug}`)}
+              onStart={() => navigate(`/${project.slug}/assessment`)}
               onGuide={() => navigate(`/${project.slug}/guide`)}
               onComplete={() => completeLevel(project.levelRequired)}
             />
@@ -362,7 +362,7 @@ function ProjectCard({ project, isLocked, isSeqLocked, isCompleted, missingCompo
                   <button
                     key={c.id}
                     style={compReqStyles.reqChip}
-                    onClick={() => navigate(`/components/${c.id}/theory`)}
+                    onClick={() => navigate('/adventure')}
                     title={`Study ${c.name} to unlock`}
                   >
                     {c.icon} {c.name} →
