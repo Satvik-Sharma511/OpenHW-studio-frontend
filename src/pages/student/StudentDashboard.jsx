@@ -15,7 +15,7 @@ import ClassroomSidebar from '../../components/common/ClassroomSidebar.jsx'
 import ClassCard from '../../components/common/ClassCard.jsx'
 import { ClassCardSkeleton } from '../../components/common/ClassroomSkeletons.jsx'
 
-const DEMO_PROJECTS = [
+const DEFAULT_DEMO_PROJECTS = [
   { title: 'LED Blink',          slug: 'led-blink',          board: 'Arduino Uno', difficulty: 'Beginner',     icon: '💡', xp: 100 },
   { title: 'RGB LED',            slug: 'rgb-led',             board: 'Arduino Uno', difficulty: 'Beginner',     icon: '🌈', xp: 150 },
   { title: 'Buzzer',             slug: 'buzzer',              board: 'Arduino Uno', difficulty: 'Beginner',     icon: '🔊', xp: 150 },
@@ -28,6 +28,7 @@ export default function StudentDashboard() {
   const { user, logout } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
+  const [demoProjects, setDemoProjects] = useState(DEFAULT_DEMO_PROJECTS)
 
   const {
     currentLevel, currentLevelData, nextLevel, xpProgress, xp,
@@ -100,6 +101,22 @@ export default function StudentDashboard() {
 
   useEffect(() => {
     loadDashboardData()
+
+    const fetchDemoProjects = async () => {
+      const BASE_URL = import.meta.env.VITE_API_BASE_URL || (import.meta.env.DEV ? 'http://localhost:5001/api' : '/api');
+      try {
+        const response = await fetch(`${BASE_URL}/projects/demo`);
+        if (response.ok) {
+          const data = await response.json();
+          if (Array.isArray(data) && data.length > 0) {
+            setDemoProjects(data);
+          }
+        }
+      } catch (err) {
+        console.error('Failed to fetch dynamic demo projects:', err);
+      }
+    };
+    fetchDemoProjects();
   }, [])
 
   useEffect(() => {
@@ -334,7 +351,7 @@ export default function StudentDashboard() {
               </header>
 
               <div className="projects-grid student-dashboard__projects-grid">
-                {DEMO_PROJECTS.map((p) => (
+                {demoProjects.map((p) => (
                   <div
                     className="project-card"
                     key={p.slug}
